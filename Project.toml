@@ -1,0 +1,13 @@
+name = "Cartesian"
+uuid = "fee9c13c-d31c-40b1-a901-b4f406a6799a"
+authors = ["John Alexiou <jalexiou@hotmail.com> and contributors"]
+version = "0.1.0"
+
+[compat]
+julia = "1"
+
+[extras]
+Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
+
+[targets]
+test = ["Test"]
