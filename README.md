@@ -101,3 +101,16 @@ Each `Matrix3` has the following properties
 
        solve(A::Matrix,b::Vector3)::Vector3
        A\b => solve(A,b)
+
+## Source code
+
+The source code is in the `src\Cartesian.jl` folder.
+
+## Tests
+
+The following statistics from tests in `test\runtests.jl`
+
+ - 26 Total
+ - 26 Passed
+ - 0 Failed
+ - 0 Errors
