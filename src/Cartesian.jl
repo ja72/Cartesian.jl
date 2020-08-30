@@ -21,7 +21,7 @@ using DocStringExtensions
 using Base: @propagate_inbounds
 
 import Base.convert, Base.*
-import LinearAlgebra.cross, LinearAlgebra.dot
+import LinearAlgebra.cross, LinearAlgebra.dot, LinearAlgebra.normalize, LinearAlgebra.norm
 
 export 
     Vector3,
@@ -29,17 +29,13 @@ export
     dot,
     cross,
     cross2,
+    slerp,
+    outer,
     inv,
     solve
 
 include("Vector3.jl")
 include("Matrix3.jl")
-
-
-
-
-
-
 
 
 end 

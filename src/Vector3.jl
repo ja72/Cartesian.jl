@@ -41,6 +41,9 @@
     """
     const k̂ = Vector3(0,0,1)
 
+    function  LinearAlgebra.norm(a::Vector3, p::Real=2)
+        return LinearAlgebra.norm(a.data, p)
+    end
 
     """
     Returns a normalized a vector whose magnitude is 1.0 or 0.0
@@ -48,7 +51,7 @@
         n = normalize(v)
 
     """
-    function normalize(v::Vector3)::Vector3
+    function LinearAlgebra.normalize(v::Vector3)::Vector3
         m2 = dot(v,v)
         if m2>0 && m2!=1.0
             return v/sqrt(m2)
@@ -98,6 +101,28 @@
         a[1]*a[2], -a[1]^2-a[3]^2, a[2]*a[3],
         a[1]*a[3], a[2]*a[3], -a[1]^2-a[2]^2)
 
+    outer(a::Vector3, b::Vector3)::Matrix3 = Matrix3(
+            a[1]*b[1], a[1]*b[2], a[1]*b[3],
+            a[2]*b[1], a[2]*b[2], a[2]*b[3],
+            a[3]*b[1], a[3]*b[2], a[3]*b[3])
+
+    function Base.angle(a::Vector3, b::Vector3)::Float64
+        x = dot(a,b)
+        y = cross(a,b).Magnitude
+        return atan(y, x)
+    end
+
+    """
+    Rotational interpolation between two vectors
+    
+        slerp(a,b,t)    # where t=0..1
+
+    """
+    function slerp(a::Vector3, b::Vector3, t::Float64) :: Vector3
+        θ = angle(a, b)
+        y = sin(θ)
+        return sin((1-t)*θ)/y*a + sin(t*θ)/y*b
+    end
 
     function Base.getproperty(v::Vector3, name::Symbol)
         if name===:X  

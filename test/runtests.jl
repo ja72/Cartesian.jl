@@ -1,5 +1,6 @@
 using LinearAlgebra
 using StaticArrays
+using Rotations
 using Cartesian
 using Test
 
@@ -40,6 +41,19 @@ using Test
     @show @test -×(r)*×(g) === Matrix3(12, 4, 6, -3, 4, -9, -2, -4, 4)
 
     @show A = Matrix3(5,-1,2,-1,5,3,-1,0,3)
+    @show @test A.Row1 === Vector3(A[1,:])
+    @show @test A.Row2 === Vector3(A[2,:])
+    @show @test A.Row3 === Vector3(A[3,:])
+    @show @test A.Column1 === Vector3(A[:,1])
+    @show @test A.Column2 === Vector3(A[:,2])
+    @show @test A.Column3 === Vector3(A[:,3])
+    @show @test A.Trace == 13.0
+    @show @test A.Determinat == 85.0
+
     @show @test isapprox(85*(A\r) , Vector3(-18, -17, 79))
     @show @test isapprox( 85*inv(A), Matrix3(15,3,-13, 0, 17, -17, 5, 1, 24))
+
+    @show @test isapprox(angle(r, g), 0.86557323388)
+    @show @test isapprox(slerp(r,g, 1.2098312542), Vector3([-2.5118334954,2.9375160105,1.5629943723]))
+    
 end

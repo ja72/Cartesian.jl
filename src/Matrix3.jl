@@ -80,9 +80,18 @@
         if name===:A31; return m[3,1]; end
         if name===:A32; return m[3,2]; end
         if name===:A33; return m[3,3]; end
+        if name===:Trace; return m[1,1]+m[2,2]+m[3,3]; end
+        if name===:Determinat; return m[1,1]*(m[2,2]*m[3,3]-m[2,3]*m[3,2])+m[1,2]*(m[2,3]*m[3,1]-m[2,1]*m[3,3])+m[1,3]*(m[2,1]*m[3,2]-m[2,2]*m[3,1]); end
+        if name===:Row1; return Vector3(m[1,1], m[1,2], m[1,3]); end
+        if name===:Row2; return Vector3(m[2,1], m[2,2], m[2,3]); end
+        if name===:Row3; return Vector3(m[3,1], m[3,2], m[3,3]); end
+        if name===:Column1; return Vector3(m[1,1], m[2,1], m[3,1]); end
+        if name===:Column2; return Vector3(m[1,2], m[2,2], m[3,2]); end
+        if name===:Column3; return Vector3(m[1,3], m[2,3], m[3,3]); end
         return getfield(m, name)
     end
 
     function Base.propertynames(m::Matrix3)
-        return (:A11, :A12, :A13, :A21, :A22, :A23, :A31, :A32, :A33)
+        return (:A11, :A12, :A13, :A21, :A22, :A23, :A31, :A32, :A33,
+        :Row1, :Row2, :Row3, :Column1, :Column2, :Column3, :Trace, :Determinat)
     end

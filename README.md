@@ -112,13 +112,16 @@ Each `Matrix3` has the following properties
 
 ## Source code
 
-The source code is in the `src\Cartesian.jl` folder.
+The source code is split among the following files
+ - `Cartesian.jl` module definition and exports
+ - `Vector3.jl` types and functions related to vectors in R3
+ - `Matrix3.jl` types and functions related to matrices in R3
 
 ## Tests
 
 The following statistics from tests in `test\runtests.jl`
 
- - 26 Total
- - 26 Passed
+ - 36 Total
+ - 36 Passed
  - 0 Failed
  - 0 Errors
