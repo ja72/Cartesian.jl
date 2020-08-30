@@ -1,12 +1,18 @@
 # Cartesian
 
-Definitions for cartesian vectors and matrices used in 3D mechanics with Julia. The repository is located at https://github.com/ja72/Cartesian.jl
+**Definitions for cartesian vectors and matrices used in 3D mechanics with Julia**. Cartesian vectors are vectors with 3 values, and cartesian matrices are matrices with 3 rows and 3 columns. I use static arrays from the package `StaticArrays` to define the cartesian vectors and matrices as type aliases to immutable `SVector{3}` and `SMatrix{3,3}` types. 
+
+Specialized versions of `dot()`, `cross()`, `inv()` and `solve()` are defined which should be faster than the general functions defined for `Arrays`. Additionally predefined constants for common vectors such as the î, ĵ, k̂ unit basis vectors, as well as the common 3×3 identity matrix Î.
+
+The specialized properties `.X`, `.Y` and `.Z` are implemented on vectors, as well as specific matrix elements `.Aij` on matrices. 
+
+The repository is located at https://github.com/ja72/Cartesian.jl
 
 ## Dependencies
 
  - LinearAlgebra
  - StaticArrays
- - Rotations (optional)
+ - Rotations (for future use)
 
  ## Types & Aliases
 
