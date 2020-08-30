@@ -1,3 +1,5 @@
+using LinearAlgebra
+using StaticArrays
 using Cartesian
 using Test
 
@@ -23,6 +25,9 @@ using Test
     @show @test r.X == 1 && r.Y == 2 && r.Z == 3
     @show @test r.SumSquares == 14
     @show @test r.Magnitude == sqrt(14)
+    @show n = normalize(r)
+    @show @test n == SVector{3}([1.0,2.0,3.0]/sqrt(14))
+    @show @test n.Magnitude == 1.0
 
     @show g = Vector3(-2,3,2)
 
@@ -33,4 +38,8 @@ using Test
     @show @test cross(r) === Matrix3(0,-3,2, 3,0,-1, -2,1,0) && ×(r) === cross(r)
     @show @test cross2(r) === cross(r)*cross(r) && ×(r)*×(r) === cross2(r)
     @show @test -×(r)*×(g) === Matrix3(12, 4, 6, -3, 4, -9, -2, -4, 4)
+
+    @show A = Matrix3(5,-1,2,-1,5,3,-1,0,3)
+    @show @test isapprox(85*(A\r) , Vector3(-18, -17, 79))
+    @show @test isapprox( 85*inv(A), Matrix3(15,3,-13, 0, 17, -17, 5, 1, 24))
 end

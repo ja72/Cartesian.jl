@@ -1,12 +1,12 @@
 # Cartesian
 
-Definitions for cartesian vectors and matrices used in 3D mechanics with Julia.
+Definitions for cartesian vectors and matrices used in 3D mechanics with Julia. The repository is located at https://github.com/ja72/Cartesian.jl
 
 ## Dependencies
 
  - LinearAlgebra
  - StaticArrays
- - Rotations
+ - Rotations (optional)
 
  ## Types & Aliases
 
@@ -92,3 +92,12 @@ Each `Matrix3` has the following properties
  - Double cross product operator matrix from a vector
 
         cross2(a::Vector3)::Matrix3 => cross(a)*cross(a)
+
+ - Matrix inverse
+
+       inv(m::Matrix3)::Matrix3
+
+ - Solve the system `A*x=b` for `x`
+
+       solve(A::Matrix,b::Vector3)::Vector3
+       A\b => solve(A,b)

@@ -1,6 +1,7 @@
 """
 
-Definitions for cartesian vectors and matrices used in 3D mechanics.
+Definitions for cartesian vectors and matrices used in 3D mechanics. 
+The repository is located at https://github.com/ja72/Cartesian.jl
 
     $(EXPORTS)
 
@@ -25,6 +26,7 @@ export
     Matrix3,
     dot,
     cross,
+    cross2,
     inv,
     solve
 
@@ -198,30 +200,37 @@ export
         a[1]*a[2], -a[1]^2-a[3]^2, a[2]*a[3],
         a[1]*a[3], a[2]*a[3], -a[1]^2-a[2]^2)
 
-    # function Base.inv(m::Matrix3)
-    #     t2 = m[1,1]*m[2,2]*m[3,3]
-    #     t3 = m[1,2]*m[2,3]*m[3,1]
-    #     t4 = m[1,3]*m[2,1]*m[3,2]
-    #     t7 = m[1,1]*m[2,3]*m[3,2]
-    #     t8 = m[1,2]*m[2,1]*m[3,3]
-    #     t9 = m[1,3]*m[2,2]*m[3,1]
-    #     t6 = 1.0/(t2+t3+t4-t7-t8-t9)
-    #     return Matrix3(
-    #          t6*(m[2,2]*m[3,3]-m[2,3]*m[3,2]),
-    #         -t6*(m[1,2]*m[3,3]-m[1,3]*m[3,2]),
-    #          t6*(m[1,2]*m[2,3]-m[1,3]*m[2,2]),
-    #         -t6*(m[2,1]*m[3,3]-m[2,3]*m[3,1]),
-    #          t6*(m[1,1]*m[3,3]-m[1,3]*m[3,1]),
-    #         -t6*(m[1,1]*m[2,3]-m[1,3]*m[2,1]),
-    #          t6*(m[2,1]*m[3,2]-m[2,2]*m[3,1]),
-    #         -t6*(m[1,1]*m[3,2]-m[1,2]*m[3,1]),
-    #          t6*(m[1,1]*m[2,2]-m[1,2]*m[2,1]))          
-    # end
+    function Base.inv(m::Matrix3)::Matrix3
+        t2 = m[1,1]*m[2,2]*m[3,3]
+        t3 = m[1,2]*m[2,3]*m[3,1]
+        t4 = m[1,3]*m[2,1]*m[3,2]
+        t7 = m[1,1]*m[2,3]*m[3,2]
+        t8 = m[1,2]*m[2,1]*m[3,3]
+        t9 = m[1,3]*m[2,2]*m[3,1]
+        t6 = 1.0/(t2+t3+t4-t7-t8-t9)
+        return Matrix3(
+             t6*(m[2,2]*m[3,3]-m[2,3]*m[3,2]),
+            -t6*(m[1,2]*m[3,3]-m[1,3]*m[3,2]),
+             t6*(m[1,2]*m[2,3]-m[1,3]*m[2,2]),
+            -t6*(m[2,1]*m[3,3]-m[2,3]*m[3,1]),
+             t6*(m[1,1]*m[3,3]-m[1,3]*m[3,1]),
+            -t6*(m[1,1]*m[2,3]-m[1,3]*m[2,1]),
+             t6*(m[2,1]*m[3,2]-m[2,2]*m[3,1]),
+            -t6*(m[1,1]*m[3,2]-m[1,2]*m[3,1]),
+             t6*(m[1,1]*m[2,2]-m[1,2]*m[2,1]))          
+    end
 
-    # function solve(m::Matrix3, v::Vector3)
-    #     return inv(m)*v
-    # end
-    
+    function solve(m::Matrix3, v::Vector3)::Vector3
+        t = (-m[1,2]*m[3,3]+m[1,3]*m[3,2])*m[2,1]+(-m[2,2]*m[1,3]+m[2,3]*m[1,2])*m[3,1]+(m[2,2]*m[3,3]-m[2,3]*m[3,2])*m[1,1]
+        return Vector3(
+            (v[1]*( m[2,2]*m[3,3] - m[2,3]*m[3,2]) + v[2]*(-m[1,2]*m[3,3] + m[1,3]*m[3,2]) + v[3]*(-m[2,2]*m[1,3] + m[2,3]*m[1,2]))/t,
+            (v[1]*(-m[2,1]*m[3,3] + m[2,3]*m[3,1]) + v[2]*( m[1,1]*m[3,3] - m[1,3]*m[3,1]) + v[3]*( m[2,1]*m[1,3] - m[2,3]*m[1,1]))/t,
+            (v[1]*( m[2,1]*m[3,2] - m[2,2]*m[3,1]) + v[2]*(-m[1,1]*m[3,2] + m[1,2]*m[3,1]) + v[3]*(-m[2,1]*m[1,2] + m[2,2]*m[1,1]))/t) 
+    end
+
+    function Base.:\(A::Matrix3, b::Vector3)
+        return solve(A,b)
+    end    
 
 end 
     
